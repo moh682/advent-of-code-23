@@ -1,34 +1,22 @@
-package part2
+package day01
 
 import (
 	"fmt"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/moh682/advent-of-code/challenge"
+	"github.com/spf13/cobra"
 )
 
-func convertToNumber(char string) int {
-	switch char {
-	case "one":
-		return 1
-	case "two":
-		return 2
-	case "three":
-		return 3
-	case "four":
-		return 4
-	case "five":
-		return 5
-	case "six":
-		return 6
-	case "seven":
-		return 7
-	case "eight":
-		return 8
-	case "nine":
-		return 9
-	default:
-		return 0
+func bCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "b",
+		Short: "Day 1, Problem A",
+		Run: func(_ *cobra.Command, _ []string) {
+			fmt.Printf("Answer: %d\n", partB(challenge.FromFile()))
+		},
 	}
 }
 
@@ -63,13 +51,14 @@ func (l *LetterNum) String() string {
 	return fmt.Sprintf("value: %d, label: %s, index: %d", l.value, l.label, l.index)
 }
 
-func Run(lines string) int {
+func partB(input *challenge.Input) int {
 
 	sum := 0
-	for _, line := range strings.Split(lines, "\n") {
+	for line := range input.Lines {
 
 		AllNumbers := []*LetterNum{}
 		labels := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
+
 		for i, l := range labels {
 			s := &LetterNum{value: i + 1, label: l}
 			s.AttachIndex(line)
@@ -94,24 +83,13 @@ func Run(lines string) int {
 		n1 := filteredSlice[0]
 		n2 := filteredSlice[len(filteredSlice)-1]
 
-		fmt.Println(n1.String())
-		fmt.Println(n2.String())
-
 		temp := strconv.Itoa(n1.value) + strconv.Itoa(n2.value)
 		localNum, err := strconv.Atoi(temp)
 		if err != nil {
 			panic(err)
 		}
 		sum += localNum
-
-		fmt.Println("-----------------------")
-		fmt.Println("line:", line)
-		fmt.Println(n1.String())
-		fmt.Println(n2.String())
-		fmt.Println("sum:", localNum)
-
 	}
 
 	return sum
-
 }

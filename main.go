@@ -1,8 +1,10 @@
 package main
 
-import "github.com/moh682/advent-of-code/one"
+import (
+	"github.com/moh682/advent-of-code/cmd"
+)
 
 func main() {
 
-	one.Run()
+	cmd.Execute()
 }

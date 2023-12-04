@@ -1,14 +1,28 @@
-package part1
+package day01
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/moh682/advent-of-code/challenge"
+	"github.com/spf13/cobra"
 )
 
-func Run(lines string) int {
+func aCommand() *cobra.Command {
+	return &cobra.Command{
+		Use:   "a",
+		Short: "Day 1, Problem A",
+		Run: func(_ *cobra.Command, _ []string) {
+			fmt.Printf("Answer: %d\n", partA(challenge.FromFile()))
+		},
+	}
+}
+
+func partA(input *challenge.Input) int {
 
 	sum := 0
-	for _, line := range strings.Split(lines, "\n") {
+	for line := range input.Lines {
 
 		numbers := make([]string, 0)
 		for _, char := range strings.Split(line, "") {
